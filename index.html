@@ -34,6 +34,30 @@
             padding-bottom: 20px;
             border-bottom: 1px solid #eee;
         }
+        input, button {
+            padding: 10px;
+            margin: 8px 0;
+            width: 100%;
+            max-width: 300px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #1558b0;
+        }
+        #result {
+            margin-top: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #1a73e8;
+        }
         footer {
             text-align: center;
             padding: 15px;
@@ -49,16 +73,29 @@
     </header>
 
     <div class="container">
-        <div class="section">
-            <h2>I'm Drowning Board</h2>
-            <p>Coming soon... Students will be able to post anonymously here.</p>
-        </div>
-
+        <!-- Fee Calculator -->
         <div class="section">
             <h2>Fee Calculator</h2>
-            <p>Coming soon... Calculate how to break your school fees into smaller payments.</p>
+            <p>Enter your total school fees and how many months you have left to pay.</p>
+            
+            <label>Total School Fees (₦):</label><br>
+            <input type="number" id="totalFees" placeholder="e.g. 250000"><br>
+
+            <label>Number of Months left:</label><br>
+            <input type="number" id="months" placeholder="e.g. 4"><br>
+
+            <button onclick="calculate()">Calculate Monthly Payment</button>
+
+            <div id="result"></div>
         </div>
 
+        <!-- I'm Drowning Board -->
+        <div class="section">
+            <h2>I'm Drowning Board</h2>
+            <p>Coming soon... Students will post anonymously here.</p>
+        </div>
+
+        <!-- Progress Wall -->
         <div class="section">
             <h2>Progress Wall</h2>
             <p>Coming soon... Share when you pay part of your fees or rent.</p>
@@ -68,5 +105,21 @@
     <footer>
         Built with ❤️ by Mamuzo
     </footer>
+
+    <script>
+        function calculate() {
+            let total = document.getElementById("totalFees").value;
+            let months = document.getElementById("months").value;
+
+            if (total === "" || months === "" || months <= 0) {
+                document.getElementById("result").innerHTML = "Please enter valid numbers.";
+                return;
+            }
+
+            let monthly = Math.ceil(total / months);
+            document.getElementById("result").innerHTML = 
+                "You need to pay approximately <strong>₦" + monthly.toLocaleString() + "</strong> every month.";
+        }
+    </script>
 </body>
 </html>
